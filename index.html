@@ -17,16 +17,17 @@
         <div class="absolute top-4 right-4">
             <select id="langSelect" onchange="changeLang()" class="bg-gray-100 text-xs border rounded p-1 outline-none font-bold">
                 <option value="en">EN 🇺🇸</option>
+                <option value="tr">TR 🇹🇷</option>
                 <option value="es">ES 🇪🇸</option>
             </select>
         </div>
 
-        <h1 class="text-xl font-black text-center mb-8 text-indigo-700 tracking-tighter pt-4">TESTER TRACKING 3602</h1>
+        <h1 class="text-xl font-black text-center mb-8 text-indigo-700 tracking-tighter pt-4 uppercase">Tester Tracking 3602</h1>
 
         <div id="step-1">
             <label id="lbl-sicil" class="block mb-2 font-bold text-gray-600 text-xs uppercase">Staff ID Number</label>
             <input type="number" id="sicil" class="w-full border-2 border-gray-100 p-4 rounded-xl mb-4 outline-none focus:border-indigo-500 text-lg shadow-sm" placeholder="...">
-            <button id="btn-login" onclick="nextStep(2)" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold shadow-lg active:scale-95 transition text-lg">LOGIN</button>
+            <button id="btn-login" onclick="nextStep(2)" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold shadow-lg active:scale-95 transition text-lg uppercase">Login</button>
         </div>
 
         <div id="step-2" class="hidden text-center">
@@ -38,34 +39,34 @@
         </div>
 
         <div id="step-3" class="hidden text-center">
-            <h2 id="selected-dept" class="text-xl font-black mb-8 text-indigo-800 bg-indigo-50 py-3 rounded-xl uppercase"></h2>
-            <button id="btn-all-ok" onclick="finalSend('Full')" class="w-full bg-green-500 text-white py-6 rounded-2xl font-black text-xl mb-6 shadow-lg active:scale-95 transition italic italic">ALL TESTERS FULL ✓</button>
+            <h2 id="selected-dept" class="text-xl font-black mb-8 text-indigo-800 bg-indigo-50 py-3 rounded-xl uppercase tracking-tighter"></h2>
+            <button id="btn-all-ok" onclick="finalSend('Full')" class="w-full bg-green-500 text-white py-6 rounded-2xl font-black text-xl mb-6 shadow-lg active:scale-95 transition italic">ALL TESTERS FULL ✓</button>
             <div class="border-t pt-6">
-                <button id="btn-missing" onclick="nextStep(4)" class="w-full bg-red-500 text-white py-4 rounded-xl font-bold uppercase text-sm active:scale-95 transition">Testers Missing / Merma</button>
+                <button id="btn-missing" onclick="nextStep(4)" class="w-full bg-red-500 text-white py-4 rounded-xl font-bold uppercase text-sm active:scale-95 transition tracking-tight">Testers Missing / Merma</button>
             </div>
         </div>
 
         <div id="step-4" class="hidden">
-            <h3 id="lbl-report" class="font-bold mb-4 text-red-600 uppercase text-xs text-center tracking-widest">Product Report Details</h3>
-            <input type="text" id="parfum-ad" class="w-full border-2 border-gray-100 p-4 rounded-xl mb-3 outline-none focus:border-orange-500" placeholder="...">
+            <h3 id="lbl-report" class="font-bold mb-4 text-red-600 uppercase text-[10px] text-center tracking-widest">Product Report Details</h3>
+            <input type="text" id="parfum-ad" class="w-full border-2 border-gray-100 p-4 rounded-xl mb-3 outline-none focus:border-orange-500 shadow-inner" placeholder="...">
             <select id="sebep" class="w-full border-2 border-gray-100 p-4 rounded-xl mb-4 bg-gray-50 font-bold text-gray-700">
                 <option value="Finished" id="opt-finished">FINISHED / REPLACED</option>
                 <option value="MERMA" id="opt-merma">MERMA (LOST/STOLEN)</option>
             </select>
-            <button id="btn-add" onclick="addItem()" class="w-full border-2 border-orange-400 text-orange-600 py-3 rounded-xl font-bold mb-6 active:scale-95 transition">+ ADD TO LIST</button>
+            <button id="btn-add" onclick="addItem()" class="w-full border-2 border-orange-400 text-orange-600 py-3 rounded-xl font-bold mb-6 active:scale-95 transition uppercase text-xs">+ Add to List</button>
             <div id="list-container" class="mb-6 space-y-2 max-h-48 overflow-y-auto"></div>
-            <button id="btn-complete" onclick="finalSend('Missing')" class="w-full bg-black text-white py-5 rounded-2xl font-black shadow-2xl active:scale-95 transition">COMPLETE & SEND</button>
+            <button id="btn-complete" onclick="finalSend('Missing')" class="w-full bg-black text-white py-5 rounded-2xl font-black shadow-2xl active:scale-95 transition uppercase">Complete & Send</button>
         </div>
 
         <div id="loading" class="hidden text-center py-12">
             <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-700 mx-auto mb-4"></div>
-            <p id="lbl-loading" class="text-indigo-700 font-bold italic">Sending data...</p>
+            <p id="lbl-loading" class="text-indigo-700 font-bold italic">Sending...</p>
         </div>
 
         <div id="step-finish" class="hidden text-center py-12">
-            <div id="lbl-success-icon" class="text-green-500 text-7xl mb-4 font-black">DONE</div>
-            <p id="lbl-success-text" class="text-gray-500 font-medium italic">Record successfully sent to sheet.</p>
-            <button id="btn-new" onclick="location.reload()" class="mt-10 text-indigo-600 font-bold border-b-2 border-indigo-600 pb-1">START NEW CHECK</button>
+            <div id="lbl-success-icon" class="text-green-500 text-6xl mb-4 font-black">DONE</div>
+            <p id="lbl-success-text" class="text-gray-500 font-medium italic">Sent to central database.</p>
+            <button id="btn-new" onclick="location.reload()" class="mt-10 text-indigo-600 font-bold border-b-2 border-indigo-600 pb-1 uppercase text-xs">New Check</button>
         </div>
     </div>
 
@@ -79,18 +80,27 @@
                 all_ok: "ALL TESTERS FULL ✓", missing: "Testers Missing / Merma",
                 report: "Product Report Details", finished: "FINISHED / REPLACED",
                 merma: "MERMA (LOST/STOLEN)", add: "+ ADD TO LIST",
-                complete: "COMPLETE & SEND", loading: "Sending data...",
-                success_icon: "DONE", success_text: "Record successfully sent to sheet.",
-                new: "START NEW CHECK", alert_id: "Please enter Staff ID!", alert_name: "Enter product name!"
+                complete: "COMPLETE & SEND", loading: "Sending...",
+                success_icon: "DONE", success_text: "Sent to central database.",
+                new: "NEW CHECK", alert_id: "Enter ID!", alert_name: "Enter product!"
+            },
+            tr: {
+                sicil: "Personel Sicil No", login: "GİRİŞ YAP", dept: "Departman Seçiniz",
+                all_ok: "TÜM TESTERLAR TAM ✓", missing: "Eksik / Merma Bildir",
+                report: "Ürün Bildirim Detayı", finished: "BİTTİ / YENİLENDİ",
+                merma: "MERMA (KAYIP / ÇALINTI)", add: "+ LİSTEYE EKLE",
+                complete: "KAYDI TAMAMLA", loading: "Gönderiliyor...",
+                success_icon: "TAMAM", success_text: "Kayıt merkeze iletildi.",
+                new: "YENİ KONTROL", alert_id: "Sicil girin!", alert_name: "Ürün adı girin!"
             },
             es: {
                 sicil: "Número de ID Personal", login: "ACCESO", dept: "Seleccionar Departamento",
-                all_ok: "PROBADORES COMPLETOS ✓", missing: "Probadores Faltantes / Merma",
-                report: "Detalles del Informe", finished: "AGOTADO / REEMPLAZADO",
+                all_ok: "PROBADORES COMPLETOS ✓", missing: "Faltantes / Merma",
+                report: "Detalles del Informe", finished: "REEMPLAZADO",
                 merma: "MERMA (PERDIDO/ROBADO)", add: "+ AGREGAR A LISTA",
-                complete: "COMPLETAR Y ENVIAR", loading: "Enviando datos...",
-                success_icon: "LISTO", success_text: "Registro enviado con éxito.",
-                new: "INICIAR NUEVO CONTROL", alert_id: "¡Ingrese ID de personal!", alert_name: "¡Ingrese nombre del producto!"
+                complete: "COMPLETAR Y ENVIAR", loading: "Enviando...",
+                success_icon: "LISTO", success_text: "Enviado con éxito.",
+                new: "NUEVO CONTROL", alert_id: "¡Ingrese ID!", alert_name: "¡Ingrese nombre!"
             }
         };
 
@@ -133,7 +143,7 @@
             state.items.push({ name: n, reason: r });
             const div = document.createElement('div');
             div.className = "bg-gray-50 p-3 rounded-lg flex justify-between items-center border-l-4 " + (r === 'MERMA' ? 'border-red-500' : 'border-indigo-400');
-            div.innerHTML = `<span class="font-bold text-sm">${n}</span><span class="text-[10px] bg-white px-2 py-1 rounded shadow-sm font-black">${r}</span>`;
+            div.innerHTML = `<span class="font-bold text-sm">${n}</span><span class="text-[10px] bg-white px-2 py-1 rounded shadow-sm font-black uppercase">${r}</span>`;
             document.getElementById('list-container').prepend(div);
             document.getElementById('parfum-ad').value = '';
         }
@@ -152,7 +162,7 @@
                 document.getElementById('loading').classList.add('hidden');
                 document.getElementById('step-finish').classList.remove('hidden');
             } catch (err) {
-                alert("Error! Check internet.");
+                alert("Internet Error!");
                 nextStep(1);
             }
         }
