@@ -2,36 +2,112 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tester Tracking 3602</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4f46e5">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; font-family: sans-serif; }
+        body { background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         .hidden { display: none; }
-        .btn-active:active { transform: scale(0.95); }
     </style>
 </head>
 <body class="p-4">
-    <div id="app" class="max-w-md mx-auto bg-white p-6 rounded-xl shadow-lg mt-10">
-        <h1 class="text-2xl font-bold text-center mb-6 text-indigo-600 border-b pb-4">Tester Tracking 3602</h1>
+    <div id="app" class="max-w-md mx-auto bg-white p-6 rounded-2xl shadow-xl mt-6">
+        <h1 class="text-2xl font-black text-center mb-6 text-indigo-700 tracking-tighter">TESTER TRACKING 3602</h1>
 
         <div id="step-1">
-            <label class="block mb-2 font-semibold text-gray-700 text-xs uppercase">Personel Sicil Kodu</label>
-            <input type="number" id="sicil" class="w-full border-2 border-gray-200 p-4 rounded-lg mb-4 outline-none focus:border-indigo-500 text-lg" placeholder="Sicil No...">
-            <button onclick="nextStep(2)" class="w-full bg-indigo-600 text-white py-4 rounded-lg font-bold shadow-md btn-active transition">SİSTEME GİRİŞ</button>
+            <label class="block mb-2 font-bold text-gray-600 text-xs uppercase">Personel Sicil No</label>
+            <input type="number" id="sicil" class="w-full border-2 border-gray-100 p-4 rounded-xl mb-4 outline-none focus:border-indigo-500 text-lg shadow-sm" placeholder="Sicil Giriniz...">
+            <button onclick="nextStep(2)" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold shadow-lg active:scale-95 transition">SİSTEME GİRİŞ</button>
         </div>
 
-        <div id="step-2" class="hidden text-center">
-            <p class="mb-6 font-bold text-gray-500 uppercase text-sm">Departman Seçiniz</p>
+        <div id="step-2" class="hidden">
+            <p class="mb-6 font-bold text-gray-400 uppercase text-center text-sm">Reyon Seçiniz</p>
             <div class="grid grid-cols-2 gap-4">
-                <button onclick="setDept('WOMAN')" class="bg-pink-500 text-white py-10 rounded-2xl font-black text-2xl shadow-lg btn-active">WOMAN</button>
-                <button onclick="setDept('MAN')" class="bg-blue-600 text-white py-10 rounded-2xl font-black text-2xl shadow-lg btn-active">MAN</button>
+                <button onclick="setDept('WOMAN')" class="bg-pink-500 text-white py-12 rounded-3xl font-black text-2xl shadow-md active:scale-95 transition">WOMAN</button>
+                <button onclick="setDept('MAN')" class="bg-blue-600 text-white py-12 rounded-3xl font-black text-2xl shadow-md active:scale-95 transition">MAN</button>
             </div>
         </div>
 
         <div id="step-3" class="hidden text-center">
-            <h2 id="selected-dept" class="text-xl font-bold mb-6 text-gray-800 bg-gray-100 py-2 rounded uppercase"></h2>
-            <button onclick="sendToGoogle('Tam')" class="w-full bg-green-500 text-white py-6 rounded-xl font-black text-lg mb-6 shadow-xl btn-active italic">TÜM TESTERLAR TAM ✓</button>
-            <div class="border-t my
+            <h2 id="selected-dept" class="text-xl font-black mb-8 text-indigo-800 bg-indigo-50 py-3 rounded-xl"></h2>
+            <button onclick="finalSend('Tam')" class="w-full bg-green-500 text-white py-6 rounded-2xl font-black text-xl mb-6 shadow-lg active:scale-95 transition italic">TESTERLAR TAM ✓</button>
+            <div class="border-t pt-6">
+                <button onclick="nextStep(4)" class="w-full bg-red-500 text-white py-4 rounded-xl font-bold uppercase text-sm active:scale-95 transition">Eksik / Merma Bildir</button>
+            </div>
+        </div>
+
+        <div id="step-4" class="hidden">
+            <h3 class="font-bold mb-4 text-red-600 uppercase text-xs text-center tracking-widest text-sm">Ürün Bildirim Detayı</h3>
+            <input type="text" id="parfum-ad" class="w-full border-2 border-gray-100 p-4 rounded-xl mb-3 outline-none focus:border-orange-500" placeholder="Parfüm Adı...">
+            <select id="sebep" class="w-full border-2 border-gray-100 p-4 rounded-xl mb-4 bg-gray-50 font-bold text-gray-700">
+                <option value="Bitti">BİTTİ / YENİLENDİ</option>
+                <option value="MERMA">MERMA (KAYIP/ÇALINTI)</option>
+            </select>
+            <button onclick="addItem()" class="w-full border-2 border-orange-400 text-orange-600 py-3 rounded-xl font-bold mb-6 active:scale-95 transition">+ LİSTEYE EKLE</button>
+            <div id="list-container" class="mb-6 space-y-2 max-h-48 overflow-y-auto"></div>
+            <button onclick="finalSend('Eksik')" class="w-full bg-black text-white py-5 rounded-2xl font-black shadow-2xl active:scale-95 transition">KAYDI TAMAMLA</button>
+        </div>
+
+        <div id="loading" class="hidden text-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-700 mx-auto mb-4"></div>
+            <p class="text-indigo-700 font-bold">Veriler Merkeze İletiliyor...</p>
+        </div>
+
+        <div id="step-finish" class="hidden text-center py-12">
+            <div class="text-green-500 text-7xl mb-4 italic font-black text-center tracking-tighter uppercase leading-none">TAMAM</div>
+            <p class="text-gray-500 font-medium">Kayıt başarıyla tabloya işlendi.</p>
+            <button onclick="location.reload()" class="mt-10 text-indigo-600 font-bold border-b-2 border-indigo-600 pb-1">YENİ İŞLEM YAP</button>
+        </div>
+    </div>
+
+    <script>
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzsYJijXJH3tmxZvZKfyhb9cq1L1qfEJE-lIVXZpjzU00mcAUzYMR5ipf787QneLbaaPg/exec';
+        let state = { sicil: '', dept: '', time: '', items: [] };
+
+        function nextStep(s) {
+            if(s === 2 && !document.getElementById('sicil').value) return alert("Sicil No girin!");
+            document.querySelectorAll('#app > div').forEach(d => d.classList.add('hidden'));
+            document.getElementById('step-'+s).classList.remove('hidden');
+            if(s === 2) state.sicil = document.getElementById('sicil').value;
+        }
+
+        function setDept(d) {
+            state.dept = d;
+            document.getElementById('selected-dept').innerText = "📍 " + d;
+            nextStep(3);
+        }
+
+        function addItem() {
+            const n = document.getElementById('parfum-ad').value;
+            const r = document.getElementById('sebep').value;
+            if(!n) return alert("Ürün adı girin!");
+            state.items.push({ name: n, reason: r });
+            const div = document.createElement('div');
+            div.className = "bg-gray-50 p-3 rounded-lg flex justify-between items-center border-l-4 " + (r === 'MERMA' ? 'border-red-500' : 'border-indigo-400');
+            div.innerHTML = `<span class="font-bold text-sm">${n}</span><span class="text-[10px] bg-white px-2 py-1 rounded shadow-sm font-black">${r}</span>`;
+            document.getElementById('list-container').prepend(div);
+            document.getElementById('parfum-ad').value = '';
+        }
+
+        async function finalSend() {
+            state.time = new Date().toLocaleString('tr-TR');
+            document.querySelectorAll('#app > div').forEach(d => d.classList.add('hidden'));
+            document.getElementById('loading').classList.remove('hidden');
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    body: JSON.stringify(state)
+                });
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('step-finish').classList.remove('hidden');
+            } catch (err) {
+                alert("Bağlantı Hatası! İnternetinizi kontrol edin.");
+                nextStep(1);
+            }
+        }
+    </script>
+</body>
+</html>
