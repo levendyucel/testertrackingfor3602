@@ -8,63 +8,77 @@
     <meta name="theme-color" content="#4f46e5">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #f3f4f6; -webkit-tap-highlight-color: transparent; font-family: sans-serif; }
         .hidden { display: none; }
+        .btn-active:active { transform: scale(0.95); }
     </style>
 </head>
 <body class="p-4">
     <div id="app" class="max-w-md mx-auto bg-white p-6 rounded-xl shadow-lg mt-10">
-        <h1 class="text-2xl font-bold text-center mb-6 text-indigo-600">Tester Tracking 3602</h1>
+        <h1 class="text-2xl font-bold text-center mb-6 text-indigo-600 border-b pb-4">Tester Tracking 3602</h1>
 
         <div id="step-1">
-            <label class="block mb-2 font-semibold text-gray-700">Personel Sicil Kodu</label>
-            <input type="number" id="sicil" class="w-full border-2 border-gray-200 p-3 rounded-lg mb-4 focus:border-indigo-500 outline-none" placeholder="Örn: 12345">
-            <button onclick="nextStep(2)" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-bold shadow-md active:scale-95 transition">Giriş Yap</button>
+            <label class="block mb-2 font-semibold text-gray-700 uppercase text-xs tracking-wider">Personel Sicil Kodu</label>
+            <input type="number" id="sicil" class="w-full border-2 border-gray-200 p-4 rounded-lg mb-4 focus:border-indigo-500 outline-none text-lg" placeholder="Sicil No Giriniz...">
+            <button onclick="nextStep(2)" class="w-full bg-indigo-600 text-white py-4 rounded-lg font-bold shadow-md btn-active transition">SİSTEME GİRİŞ</button>
         </div>
 
         <div id="step-2" class="hidden text-center">
-            <p class="mb-6 font-bold text-gray-600 uppercase tracking-wide">Departman Seçiniz</p>
+            <p class="mb-6 font-bold text-gray-500 uppercase tracking-widest text-sm">Departman Seçiniz</p>
             <div class="grid grid-cols-2 gap-4">
-                <button onclick="setDept('WOMAN')" class="bg-pink-500 text-white py-8 rounded-2xl font-black text-xl shadow-lg">WOMAN</button>
-                <button onclick="setDept('MAN')" class="bg-blue-600 text-white py-8 rounded-2xl font-black text-xl shadow-lg">MAN</button>
+                <button onclick="setDept('WOMAN')" class="bg-pink-500 text-white py-10 rounded-2xl font-black text-2xl shadow-lg btn-active">WOMAN</button>
+                <button onclick="setDept('MAN')" class="bg-blue-600 text-white py-10 rounded-2xl font-black text-2xl shadow-lg btn-active">MAN</button>
             </div>
         </div>
 
-        <div id="step-3" class="hidden">
-            <h2 id="selected-dept" class="text-xl font-bold mb-6 text-center text-gray-800"></h2>
-            <button onclick="finishProcess('Tam')" class="w-full bg-green-500 text-white py-5 rounded-xl font-bold mb-6 shadow-lg">TÜM TESTERLAR TAM</button>
-            <button onclick="nextStep(4)" class="w-full bg-red-500 text-white py-5 rounded-xl font-bold shadow-lg">TESTERLAR EKSİK</button>
+        <div id="step-3" class="hidden text-center">
+            <h2 id="selected-dept" class="text-xl font-bold mb-6 text-gray-800 bg-gray-100 py-2 rounded"></h2>
+            <button onclick="sendToGoogle('Her Şey Tam')" class="w-full bg-green-500 text-white py-6 rounded-xl font-black text-lg mb-6 shadow-xl btn-active italic">TÜM TESTERLAR TAM ✓</button>
+            <div class="border-t my-6 pt-6">
+                <button onclick="nextStep(4)" class="w-full bg-red-500 text-white py-4 rounded-xl font-bold shadow-lg btn-active uppercase text-sm">Testerlar Eksik / Merma Bildir</button>
+            </div>
         </div>
 
         <div id="step-4" class="hidden">
-            <h3 class="font-bold mb-4 text-red-600">Eksik/Biten Ürün Bildirimi</h3>
-            <input type="text" id="parfum-ad" class="w-full border p-3 rounded-lg mb-3 outline-none focus:border-orange-500" placeholder="Parfüm Adı ve Markası...">
-            <select id="sebep" class="w-full border p-3 rounded-lg mb-4 bg-gray-50 font-medium">
-                <option value="Bitti/Yenilendi">Bitti / Yeni Tester Eklendi</option>
-                <option value="MERMA">MERMA (Kayıp / Çalıntı)</option>
+            <h3 class="font-bold mb-4 text-red-600 uppercase text-xs">Eksik Ürün Bildirim Formu</h3>
+            <input type="text" id="parfum-ad" class="w-full border-2 p-4 rounded-lg mb-3 outline-none focus:border-orange-500" placeholder="Parfüm Adı ve Markası...">
+            <select id="sebep" class="w-full border-2 p-4 rounded-lg mb-4 bg-gray-50 font-bold text-gray-700">
+                <option value="Bitti/Yenilendi">BİTTİ / YENİSİ EKLENDİ</option>
+                <option value="MERMA">MERMA (KAYIP / ÇALINTI)</option>
             </select>
-            <button onclick="addMissing()" class="w-full border-2 border-orange-500 text-orange-600 py-2 rounded-lg font-bold mb-6 italic">+ Listeye Ekle</button>
-            <div id="missing-list" class="mb-6 space-y-2 border-t pt-4"></div>
-            <button onclick="finishProcess('Eksik')" class="w-full bg-black text-white py-4 rounded-xl font-bold shadow-xl">KAYDI TAMAMLA VE ÇIK</button>
+            <button onclick="addMissing()" class="w-full border-2 border-orange-500 text-orange-600 py-3 rounded-lg font-bold mb-6 btn-active">+ LİSTEYE EKLE</button>
+            
+            <div id="missing-list" class="mb-6 space-y-2 max-h-40 overflow-y-auto"></div>
+            
+            <button onclick="sendToGoogle('Eksik Bildirildi')" class="w-full bg-black text-white py-5 rounded-xl font-black shadow-2xl btn-active">KAYDI TAMAMLA VE GÖNDER</button>
+        </div>
+
+        <div id="loading" class="hidden text-center py-10">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-4 border-indigo-600 mb-4"></div>
+            <p class="text-indigo-600 font-bold animate-pulse text-lg">Veriler Merkeze İletiliyor...</p>
         </div>
 
         <div id="step-finish" class="hidden text-center py-10">
-            <div class="text-green-500 text-7xl mb-4">L</div>
-            <p class="text-xl font-bold text-gray-800">Kayıt Başarılı!</p>
-            <p id="summary" class="text-sm text-gray-500 mt-4 px-4"></p>
-            <button onclick="location.reload()" class="mt-8 text-indigo-600 font-bold border-b-2 border-indigo-600">Yeni İşlem</button>
+            <div class="bg-green-100 text-green-600 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="text-4xl font-bold">✓</span>
+            </div>
+            <p class="text-2xl font-black text-gray-800">İŞLEM BAŞARILI!</p>
+            <p class="text-sm text-gray-500 mt-4 leading-relaxed">Veriler anlık olarak merkeze iletildi.<br>Güvenli bir şekilde kapatabilirsiniz.</p>
+            <button onclick="location.reload()" class="mt-8 text-indigo-600 font-bold border-b-2 border-indigo-600 uppercase text-xs tracking-tighter">Yeni Kontrol Başlat</button>
         </div>
     </div>
 
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js');
-        }
+        // SİZİN ÖZEL GOOGLE SCRIPT URL'NİZ
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyzuoDGIe4FiVQOaBu1qNoXMF0BiRpR2PPDu-rB1l5M_j4XnR-Uc8Y754vW5-rtDmwBIw/exec';
 
         let data = { sicil: '', dept: '', time: '', items: [] };
 
         function nextStep(step) {
-            if(step === 2 && !document.getElementById('sicil').value) return alert("Sicil girin!");
+            if(step === 2 && !document.getElementById('sicil').value) {
+                alert("Lütfen sicil numaranızı girin!");
+                return;
+            }
             document.querySelectorAll('#app > div').forEach(div => div.classList.add('hidden'));
             document.getElementById('step-' + step).classList.remove('hidden');
             if(step === 2) data.sicil = document.getElementById('sicil').value;
@@ -72,30 +86,46 @@
 
         function setDept(dept) {
             data.dept = dept;
-            document.getElementById('selected-dept').innerText = "📍 " + dept + " REYONU";
+            document.getElementById('selected-dept').innerText = "📍 " + dept + " BÖLÜMÜ";
             nextStep(3);
         }
 
         function addMissing() {
             const name = document.getElementById('parfum-ad').value;
             const reason = document.getElementById('sebep').value;
-            if(!name) return alert("Parfüm ismi boş olamaz!");
+            if(!name) { alert("Lütfen ürün adı giriniz!"); return; }
+            
             data.items.push({ name, reason });
+            
             const itemDiv = document.createElement('div');
-            itemDiv.className = "bg-gray-100 p-2 rounded text-sm flex justify-between border-l-4 " + (reason === 'MERMA' ? 'border-red-500' : 'border-blue-500');
-            itemDiv.innerHTML = `<span><strong>${name}</strong></span> <span class="text-xs uppercase">${reason}</span>`;
-            document.getElementById('missing-list').appendChild(itemDiv);
+            itemDiv.className = "bg-gray-50 p-3 rounded-lg flex justify-between items-center border-l-4 " + (reason === 'MERMA' ? 'border-red-600' : 'border-blue-500');
+            itemDiv.innerHTML = `<span class='font-bold text-gray-800 text-sm'>${name}</span> <span class='text-[10px] bg-white px-2 py-1 rounded shadow-sm font-black'>${reason}</span>`;
+            document.getElementById('missing-list').prepend(itemDiv);
             document.getElementById('parfum-ad').value = '';
         }
 
-        function finishProcess(status) {
+        async function sendToGoogle(status) {
             data.time = new Date().toLocaleString('tr-TR');
-            // Log verisi burada oluşuyor
-            console.log("SUNUCUYA GİDEN VERİ:", data);
-            
             document.querySelectorAll('#app > div').forEach(div => div.classList.add('hidden'));
-            document.getElementById('step-finish').classList.remove('hidden');
-            document.getElementById('summary').innerText = `${data.sicil} sicilli personel, ${data.time} saatinde ${data.dept} reyonu kontrolünü tamamladı.`;
+            document.getElementById('loading').classList.remove('hidden');
+
+            try {
+                // Google Scripts POST isteği
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    body: JSON.stringify(data)
+                });
+                
+                // Başarılı ekranı
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('step-finish').classList.remove('hidden');
+            } catch (e) {
+                console.error("Hata:", e);
+                alert("Bağlantı hatası! Lütfen internetinizi kontrol edip tekrar deneyin.");
+                nextStep(1);
+            }
         }
     </script>
 </body>
