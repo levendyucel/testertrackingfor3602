@@ -1,7 +1,7 @@
 {
   "name": "Tester Tracking 3602",
   "short_name": "Tester3602",
-  "start_url": "index.html",
+  "start_url": "index.html?v=2",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4f46e5",
@@ -10,13 +10,13 @@
       "src": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
