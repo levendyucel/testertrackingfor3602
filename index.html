@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6HKT43MP20"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-6HKT43MP20');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Tester Tracking 3602</title>
@@ -88,84 +97,4 @@
                 sicil: "Personel Sicil No", login: "GİRİŞ YAP", dept: "Departman Seçiniz",
                 all_ok: "TÜM TESTERLAR TAM ✓", missing: "Eksik / Merma Bildir",
                 report: "Ürün Bildirim Detayı", finished: "BİTTİ / YENİLENDİ",
-                merma: "MERMA (KAYIP / ÇALINTI)", add: "+ LİSTEYE EKLE",
-                complete: "KAYDI TAMAMLA", loading: "Gönderiliyor...",
-                success_icon: "TAMAM", success_text: "Kayıt merkeze iletildi.",
-                new: "YENİ KONTROL", alert_id: "Sicil girin!", alert_name: "Ürün adı girin!"
-            },
-            es: {
-                sicil: "Número de ID Personal", login: "ACCESO", dept: "Seleccionar Departamento",
-                all_ok: "PROBADORES COMPLETOS ✓", missing: "Faltantes / Merma",
-                report: "Detalles del Informe", finished: "REEMPLAZADO",
-                merma: "MERMA (PERDIDO/ROBADO)", add: "+ AGREGAR A LISTA",
-                complete: "COMPLETAR Y ENVIAR", loading: "Enviando...",
-                success_icon: "LISTO", success_text: "Enviado con éxito.",
-                new: "NUEVO CONTROL", alert_id: "¡Ingrese ID!", alert_name: "¡Ingrese nombre!"
-            }
-        };
-
-        function changeLang() {
-            state.lang = document.getElementById('langSelect').value;
-            const t = translations[state.lang];
-            document.getElementById('lbl-sicil').innerText = t.sicil;
-            document.getElementById('btn-login').innerText = t.login;
-            document.getElementById('lbl-dept').innerText = t.dept;
-            document.getElementById('btn-all-ok').innerText = t.all_ok;
-            document.getElementById('btn-missing').innerText = t.missing;
-            document.getElementById('lbl-report').innerText = t.report;
-            document.getElementById('opt-finished').innerText = t.finished;
-            document.getElementById('opt-merma').innerText = t.merma;
-            document.getElementById('btn-add').innerText = t.add;
-            document.getElementById('btn-complete').innerText = t.complete;
-            document.getElementById('lbl-loading').innerText = t.loading;
-            document.getElementById('lbl-success-icon').innerText = t.success_icon;
-            document.getElementById('lbl-success-text').innerText = t.success_text;
-            document.getElementById('btn-new').innerText = t.new;
-        }
-
-        function nextStep(s) {
-            if(s === 2 && !document.getElementById('sicil').value) return alert(translations[state.lang].alert_id);
-            document.querySelectorAll('#app > div').forEach(d => d.classList.add('hidden'));
-            document.getElementById('step-'+s).classList.remove('hidden');
-            if(s === 2) state.sicil = document.getElementById('sicil').value;
-        }
-
-        function setDept(d) {
-            state.dept = d;
-            document.getElementById('selected-dept').innerText = "📍 " + d;
-            nextStep(3);
-        }
-
-        function addItem() {
-            const n = document.getElementById('parfum-ad').value;
-            const r = document.getElementById('sebep').value;
-            if(!n) return alert(translations[state.lang].alert_name);
-            state.items.push({ name: n, reason: r });
-            const div = document.createElement('div');
-            div.className = "bg-gray-50 p-3 rounded-lg flex justify-between items-center border-l-4 " + (r === 'MERMA' ? 'border-red-500' : 'border-indigo-400');
-            div.innerHTML = `<span class="font-bold text-sm">${n}</span><span class="text-[10px] bg-white px-2 py-1 rounded shadow-sm font-black uppercase">${r}</span>`;
-            document.getElementById('list-container').prepend(div);
-            document.getElementById('parfum-ad').value = '';
-        }
-
-        async function finalSend() {
-            state.time = new Date().toLocaleString('tr-TR');
-            document.querySelectorAll('#app > div').forEach(d => d.classList.add('hidden'));
-            document.getElementById('loading').classList.remove('hidden');
-
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: JSON.stringify(state)
-                });
-                document.getElementById('loading').classList.add('hidden');
-                document.getElementById('step-finish').classList.remove('hidden');
-            } catch (err) {
-                alert("Internet Error!");
-                nextStep(1);
-            }
-        }
-    </script>
-</body>
-</html>
+                merma: "MERMA (KAYIP / ÇALINTI)", add: "+
