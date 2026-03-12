@@ -36,19 +36,26 @@
             <label id="lbl-sicil" class="block mb-2 font-bold text-gray-600 text-xs uppercase">Staff ID Number</label>
             <input type="number" id="sicil" class="w-full border-2 border-gray-100 p-4 rounded-xl mb-4 outline-none focus:border-indigo-500 text-lg shadow-sm" placeholder="...">
             <button id="btn-login" onclick="nextStep(2)" class="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold shadow-lg active:scale-95 transition text-lg uppercase">Login</button>
+            
+            <div class="mt-8 text-center border-t pt-4">
+                <a href="https://docs.google.com/spreadsheets/d/1B-lO6XInG1f7-Qat_vTjG7F9e5p9A2_Xm9Zz7M0V1Yk/edit?usp=sharing" target="_blank" class="text-indigo-500 text-xs font-bold flex items-center justify-center gap-2">
+                    📊 <span id="lbl-view-sheet">View Spreadsheet Records</span>
+                </a>
+            </div>
         </div>
 
         <div id="step-2" class="hidden text-center">
             <p id="lbl-dept" class="mb-6 font-bold text-gray-400 uppercase text-sm">Select Department</p>
-            <div class="grid grid-cols-2 gap-4">
-                <button onclick="setDept('WOMAN')" class="bg-pink-500 text-white py-12 rounded-3xl font-black text-2xl shadow-md active:scale-95 transition">WOMAN</button>
-                <button onclick="setDept('MAN')" class="bg-blue-600 text-white py-12 rounded-3xl font-black text-2xl shadow-md active:scale-95 transition">MAN</button>
+            <div class="grid grid-cols-1 gap-4">
+                <button onclick="setDept('WOMAN')" class="bg-pink-500 text-white py-8 rounded-3xl font-black text-2xl shadow-md active:scale-95 transition uppercase">WOMAN</button>
+                <button onclick="setDept('MAN')" class="bg-blue-600 text-white py-8 rounded-3xl font-black text-2xl shadow-md active:scale-95 transition uppercase">MAN</button>
+                <button onclick="setDept('KIDS')" class="bg-orange-500 text-white py-8 rounded-3xl font-black text-2xl shadow-md active:scale-95 transition uppercase font-black uppercase">KIDS</button>
             </div>
         </div>
 
         <div id="step-3" class="hidden text-center">
             <h2 id="selected-dept" class="text-xl font-black mb-8 text-indigo-800 bg-indigo-50 py-3 rounded-xl uppercase tracking-tighter"></h2>
-            <button id="btn-all-ok" onclick="finalSend('Full')" class="w-full bg-green-500 text-white py-6 rounded-2xl font-black text-xl mb-6 shadow-lg active:scale-95 transition italic">ALL TESTERS FULL ✓</button>
+            <button id="btn-all-ok" onclick="finalSend('Full')" class="w-full bg-green-500 text-white py-6 rounded-2xl font-black text-xl mb-6 shadow-lg active:scale-95 transition italic uppercase">All Testers Full ✓</button>
             <div class="border-t pt-6">
                 <button id="btn-missing" onclick="nextStep(4)" class="w-full bg-red-500 text-white py-4 rounded-xl font-bold uppercase text-sm active:scale-95 transition tracking-tight">Testers Missing / Merma</button>
             </div>
@@ -90,7 +97,8 @@
                 merma: "MERMA (LOST/STOLEN)", add: "+ ADD TO LIST",
                 complete: "COMPLETE & SEND", loading: "Sending...",
                 success_icon: "DONE", success_text: "Sent to central database.",
-                new: "NEW CHECK", alert_id: "Enter ID!", alert_name: "Enter product!"
+                new: "NEW CHECK", alert_id: "Enter ID!", alert_name: "Enter product!",
+                view_sheet: "View Spreadsheet Records"
             },
             tr: {
                 sicil: "Personel Sicil No", login: "GİRİŞ YAP", dept: "Departman Seçiniz",
@@ -99,7 +107,8 @@
                 merma: "MERMA (KAYIP / ÇALINTI)", add: "+ LİSTEYE EKLE",
                 complete: "KAYDI TAMAMLA", loading: "Gönderiliyor...",
                 success_icon: "TAMAM", success_text: "Kayıt merkeze iletildi.",
-                new: "YENİ KONTROL", alert_id: "Sicil girin!", alert_name: "Ürün adı girin!"
+                new: "YENİ KONTROL", alert_id: "Sicil girin!", alert_name: "Ürün adı girin!",
+                view_sheet: "E-Tablo Kayıtlarını Görüntüle"
             },
             es: {
                 sicil: "Número de ID Personal", login: "ACCESO", dept: "Seleccionar Departamento",
@@ -108,7 +117,8 @@
                 merma: "MERMA (PERDIDO/ROBADO)", add: "+ AGREGAR A LISTA",
                 complete: "COMPLETAR Y ENVIAR", loading: "Enviando...",
                 success_icon: "LISTO", success_text: "Enviado con éxito.",
-                new: "NUEVO CONTROL", alert_id: "¡Ingrese ID!", alert_name: "¡Ingrese nombre!"
+                new: "NUEVO CONTROL", alert_id: "¡Ingrese ID!", alert_name: "¡Ingrese nombre!",
+                view_sheet: "Ver Registros de Hoja"
             }
         };
 
@@ -129,6 +139,7 @@
             document.getElementById('lbl-success-icon').innerText = t.success_icon;
             document.getElementById('lbl-success-text').innerText = t.success_text;
             document.getElementById('btn-new').innerText = t.new;
+            document.getElementById('lbl-view-sheet').innerText = t.view_sheet;
         }
 
         function nextStep(s) {
